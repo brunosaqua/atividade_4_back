@@ -1,130 +1,123 @@
-Atividade prática — Protótipo de
-cadastro de tarefa em terminal
-Cenário de mercado
-Uma empresa de desenvolvimento de software deseja validar o cadastro básico de tarefas
-para um sistema interno. Antes de investir em interface web e banco de dados, a equipe
-precisa de um protótipo de terminal que receba informações essenciais e gere um resumo
-padronizado.
-Você atuará como pessoa desenvolvedora back end responsável por implementar esse
-primeiro experimento técnico.
 
-# Menu de Tarefas para uma Equipe de Serviços
 
-## Descrição
 
-Programa desenvolvido em Python para funcionar no terminal e permitir o cadastro, consulta e atualização de tarefas de uma equipe de serviços.
 
-O projeto foi desenvolvido como atividade prática com o objetivo de utilizar estruturas de decisão, validações e repetições em Python.
 
-## Como executar
 
-É necessário ter o Python instalado no computador.
 
-No terminal, entre na pasta onde está o arquivo `menu_tarefas.py` e execute:
 
-```bash
-python menu_tarefas.py
-```
 
-Em alguns computadores com Windows, pode ser necessário utilizar:
 
-```bash
-py menu_tarefas.py
-```
 
-## Opções disponíveis
 
-### 1 - Cadastrar tarefa
 
-Permite cadastrar uma nova tarefa informando:
 
-* Título
-* Prioridade
 
-As prioridades aceitas são:
+Gerenciador de Chamados Internos
+Objetivo
 
-* baixa
-* média
-* alta
+O programa tem como objetivo gerenciar chamados internos de uma empresa utilizando Python.
 
-Toda tarefa cadastrada recebe automaticamente a situação:
+Os chamados são armazenados em uma lista de dicionários e possuem as seguintes informações:
 
-`pendente`
+ID
+Título
+Prioridade
+Situação
+Categoria
 
-### 2 - Listar tarefas
+O programa permite:
 
-Exibe todas as tarefas cadastradas, mostrando:
+Listar todos os chamados;
+Filtrar chamados por situação;
+Informar quando não existem chamados para uma determinada situação;
+Atualizar a situação de um chamado pelo ID;
+Informar quando um ID não existe;
+Exibir as categorias existentes sem repetição utilizando set.
+Como executar
 
-* Número
-* Título
-* Prioridade
-* Situação
+No terminal, dentro da pasta do projeto, execute:
 
-### 3 - Atualizar situação de uma tarefa
+python gerenciador_chamados.py
 
-Permite selecionar uma tarefa pelo número e alterar sua situação para:
 
-`concluída`
+Caso o computador utilize python3:
 
-Caso o número informado não corresponda a uma tarefa existente, o programa informa:
+python3 gerenciador_chamados.py
 
-`Tarefa inexistente.`
+Exemplo de saída
+========================================
+       TODOS OS CHAMADOS
+========================================
+ID: 1
+Título: Sem acesso ao sistema interno
+Prioridade: alta
+Situação: aberto
+Categoria: acesso
+----------------------------------------
 
-### 4 - Encerrar sistema
+========================================
+CHAMADOS COM SITUAÇÃO: aberto
+========================================
+ID: 1
+Título: Sem acesso ao sistema interno
+Prioridade: alta
+Categoria: acesso
+----------------------------------------
 
-Encerra a execução do programa.
+========================================
+ATUALIZAÇÃO DE CHAMADO
+========================================
+Chamado 3 atualizado com sucesso!
+Nova situação: resolvido
 
-## Validações
+========================================
+       CATEGORIAS DOS CHAMADOS
+========================================
+- acesso
+- hardware
+- software
 
-O programa verifica:
+Autoria
 
-* Título vazio;
-* Prioridade diferente de baixa, média ou alta;
-* Número inválido na atualização;
-* Tarefa inexistente;
-* Opção inválida no menu.
+Nome: Seu Nome
 
-## Estruturas utilizadas
+Dupla: Nome do integrante da dupla, se houver
 
-O projeto utiliza:
+:::
 
-* `while` para manter o menu funcionando até o encerramento;
-* `if`, `elif` e `else` para controlar as opções;
-* `for` para percorrer e listar as tarefas;
-* `list` para armazenar as tarefas temporariamente;
-* `dict` para representar cada tarefa.
+## 3. Como testar
 
-## Limitações
-
-Os dados ficam armazenados somente na memória durante a execução do programa.
-
-Ao escolher a opção 4 e encerrar o sistema, todas as tarefas cadastradas são perdidas.
-
-O programa não utiliza banco de dados, servidor ou framework web.
-
-## Exemplo
-
-```text
-===== MENU DE TAREFAS =====
-1 - Cadastrar tarefa
-2 - Listar tarefas
-3 - Atualizar situação de uma tarefa
-4 - Encerrar sistema
-
-Escolha uma opção: 1
-
-Digite o título da tarefa: Revisar relatório
-Digite a prioridade (baixa, média ou alta): alta
-
-Tarefa cadastrada com sucesso!
-```
-
-## Commit
-
-Exemplo de mensagem de commit:
+Na pasta onde estão os arquivos, rode:
 
 ```bash
-git add menu_tarefas.py README.md
-git commit -m "feat: implementa menu de tarefas"
+python gerenciador_chamados.py
+
+
+O programa já testa os principais requisitos:
+
+5 chamados cadastrados;
+Listagem de todos;
+Filtro por "aberto", que possui resultados;
+Filtro por "cancelado", que não possui resultados;
+Atualização do chamado de ID 3 para "resolvido";
+Teste do ID 99, que não existe;
+Uso de set() para mostrar categorias sem repetição.
+Para entregar no GitHub
+
+Sua estrutura pode ficar assim:
+
+seu-repositorio/
+│
+├── gerenciador_chamados.py
+└── README.md
+
+
+Depois, no Git:
+
+git add gerenciador_chamados.py README.md
+git commit -m "Adiciona gerenciador de chamados"
 git push
-```
+
+
+Se você estiver fazendo essa atividade em uma branch específica, posso também te passar exatamente os comandos para criar a branch, colocar esses dois arquivos e enviar para o GitHub.
