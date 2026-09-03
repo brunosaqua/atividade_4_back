@@ -1,6 +1,5 @@
 # Gerenciador de Chamados Internos
 
-# 1. Lista de chamados
 chamados = [
     {
         "id": 1,
@@ -40,114 +39,106 @@ chamados = [
 ]
 
 
-# 2. Listagem de todos os chamados
-print("========================================")
-print("       TODOS OS CHAMADOS")
-print("========================================")
+def listar_chamados():
+    print("========================================")
+    print("       TODOS OS CHAMADOS")
+    print("========================================")
 
-for chamado in chamados:
-    print(f"ID: {chamado['id']}")
-    print(f"Título: {chamado['titulo']}")
-    print(f"Prioridade: {chamado['prioridade']}")
-    print(f"Situação: {chamado['situacao']}")
-    print(f"Categoria: {chamado['categoria']}")
-    print("----------------------------------------")
-
-
-# 3. Filtro por situação
-situacao_desejada = "aberto"
-
-print("\n========================================")
-print(f"CHAMADOS COM SITUAÇÃO: {situacao_desejada}")
-print("========================================")
-
-encontrou_chamado = False
-
-for chamado in chamados:
-    if chamado["situacao"] == situacao_desejada:
-        encontrou_chamado = True
+    for chamado in chamados:
         print(f"ID: {chamado['id']}")
         print(f"Título: {chamado['titulo']}")
         print(f"Prioridade: {chamado['prioridade']}")
+        print(f"Situação: {chamado['situacao']}")
         print(f"Categoria: {chamado['categoria']}")
         print("----------------------------------------")
 
-if not encontrou_chamado:
-    print("Nenhum chamado encontrado nessa situação.")
+
+def filtrar_por_situacao(situacao_desejada):
+    encontrou = False
+
+    print("\n========================================")
+    print(f"CHAMADOS COM SITUAÇÃO: {situacao_desejada}")
+    print("========================================")
+
+    for chamado in chamados:
+        if chamado["situacao"] == situacao_desejada:
+            encontrou = True
+            print(f"ID: {chamado['id']}")
+            print(f"Título: {chamado['titulo']}")
+            print(f"Prioridade: {chamado['prioridade']}")
+            print(f"Categoria: {chamado['categoria']}")
+            print("----------------------------------------")
+
+    if not encontrou:
+        print("Nenhum chamado encontrado nessa situação.")
 
 
-# Teste de uma situação inexistente
-situacao_desejada = "cancelado"
+def atualizar_chamado(id_desejado, nova_situacao):
+    for chamado in chamados:
+        if chamado["id"] == id_desejado:
+            chamado["situacao"] = nova_situacao
+            print(f"Chamado {id_desejado} atualizado com sucesso!")
+            print(f"Nova situação: {nova_situacao}")
+            return True
 
-print("\n========================================")
-print(f"CHAMADOS COM SITUAÇÃO: {situacao_desejada}")
-print("========================================")
-
-encontrou_chamado = False
-
-for chamado in chamados:
-    if chamado["situacao"] == situacao_desejada:
-        encontrou_chamado = True
-        print(f"ID: {chamado['id']}")
-        print(f"Título: {chamado['titulo']}")
-        print("----------------------------------------")
-
-if not encontrou_chamado:
-    print("Nenhum chamado encontrado nessa situação.")
-
-
-# 4. Atualização da situação por ID
-id_desejado = 3
-nova_situacao = "resolvido"
-
-print("\n========================================")
-print("ATUALIZAÇÃO DE CHAMADO")
-print("========================================")
-
-chamado_encontrado = False
-
-for chamado in chamados:
-    if chamado["id"] == id_desejado:
-        chamado["situacao"] = nova_situacao
-        chamado_encontrado = True
-        print(f"Chamado {id_desejado} atualizado com sucesso!")
-        print(f"Nova situação: {nova_situacao}")
-        break
-
-if not chamado_encontrado:
     print("Chamado não encontrado.")
+    return False
 
 
-# Teste de ID inexistente
-id_desejado = 99
-nova_situacao = "em atendimento"
+def listar_categorias():
+    categorias = set()
 
-print("\n========================================")
-print("TESTE DE ID INEXISTENTE")
-print("========================================")
+    for chamado in chamados:
+        categorias.add(chamado["categoria"])
 
-chamado_encontrado = False
+    print("\n========================================")
+    print("       CATEGORIAS DOS CHAMADOS")
+    print("========================================")
 
-for chamado in chamados:
-    if chamado["id"] == id_desejado:
-        chamado["situacao"] = nova_situacao
-        chamado_encontrado = True
-        print(f"Chamado {id_desejado} atualizado com sucesso!")
-        break
-
-if not chamado_encontrado:
-    print("Chamado não encontrado.")
+    for categoria in categorias:
+        print(f"- {categoria}")
 
 
-# 5. Categorias sem repetição
-categorias = set()
+def menu_chamados():
+    while True:
+        print("\n===== GERENCIADOR DE CHAMADOS =====")
+        print("1 - Listar chamados")
+        print("2 - Filtrar por situação")
+        print("3 - Atualizar chamado")
+        print("4 - Listar categorias")
+        print("5 - Voltar ao menu principal")
 
-for chamado in chamados:
-    categorias.add(chamado["categoria"])
+        opcao = input("Escolha uma opção: ").strip()
 
-print("\n========================================")
-print("       CATEGORIAS DOS CHAMADOS")
-print("========================================")
+        if opcao == "1":
+            listar_chamados()
 
-for categoria in categorias:
-    print(f"- {categoria}")
+        elif opcao == "2":
+            situacao = input(
+                "Digite a situação (aberto, em atendimento, resolvido): "
+            ).strip().lower()
+
+            filtrar_por_situacao(situacao)
+
+        elif opcao == "3":
+            id_desejado = input("Digite o ID do chamado: ").strip()
+            nova_situacao = input(
+                "Digite a nova situação: "
+            ).strip().lower()
+
+            if id_desejado.isdigit():
+                atualizar_chamado(
+                    int(id_desejado),
+                    nova_situacao
+                )
+            else:
+                print("Digite um ID válido.")
+
+        elif opcao == "4":
+            listar_categorias()
+
+        elif opcao == "5":
+            break
+
+        else:
+            print("Opção inválida.")

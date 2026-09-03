@@ -1,66 +1,83 @@
-tarefas = []
+from tarefa import Tarefa
+from servicos import cadastrar_tarefa, listar_tarefas, filtrar_por_situacao
 
-while True:
-    print("\n===== MENU DE TAREFAS =====")
-    print("1 - Cadastrar tarefa")
-    print("2 - Listar tarefas")
-    print("3 - Atualizar situação de uma tarefa")
-    print("4 - Encerrar sistema")
 
-    opcao = input("Escolha uma opção: ").strip()
+def menu_tarefas(tarefas):
+    while True:
+        print("\n===== MENU DE TAREFAS =====")
+        print("1 - Cadastrar tarefa")
+        print("2 - Listar tarefas")
+        print("3 - Concluir tarefa")
+        print("4 - Listar concluídas")
+        print("5 - Listar pendentes")
+        print("6 - Voltar ao menu principal")
 
-    if opcao == "1":
-        titulo = input("Digite o título da tarefa: ").strip()
-        prioridade = input("Digite a prioridade (baixa, média ou alta): ").strip().lower()
+        opcao = input("Escolha uma opção: ").strip()
 
-        if titulo == "":
-            print("O título não pode estar vazio.")
-        elif prioridade not in ["baixa", "média", "alta"]:
-            print("Prioridade inválida. Use baixa, média ou alta.")
-        else:
-            tarefa = {
-                "titulo": titulo,
-                "prioridade": prioridade,
-                "situacao": "pendente"
-            }
+        if opcao == "1":
+            titulo = input("Digite o título: ").strip()
+            descricao = input("Digite a descrição: ").strip()
+            prioridade = input(
+                "Digite a prioridade (baixa, média ou alta): "
+            ).strip().capitalize()
 
-            tarefas.append(tarefa)
-            print("Tarefa cadastrada com sucesso!")
+            if titulo == "":
+                print("O título não pode estar vazio.")
 
-    elif opcao == "2":
-        if len(tarefas) == 0:
-            print("Não há tarefas cadastradas.")
-        else:
-            print("\n===== TAREFAS =====")
+            elif prioridade not in ["Baixa", "Média", "Alta"]:
+                print("Prioridade inválida.")
 
-            for numero, tarefa in enumerate(tarefas, start=1):
-                print(
-                    f"{numero} - {tarefa['titulo']} | "
-                    f"prioridade: {tarefa['prioridade']} | "
-                    f"situação: {tarefa['situacao']}"
+            else:
+                cadastrar_tarefa(
+                    tarefas,
+                    titulo,
+                    descricao,
+                    prioridade,
+                    Tarefa
                 )
 
-    elif opcao == "3":
-        if len(tarefas) == 0:
-            print("Não há tarefas cadastradas.")
-        else:
-            numero = input("Digite o número da tarefa que deseja concluir: ").strip()
+                print("Tarefa cadastrada com sucesso!")
 
-            if not numero.isdigit():
-                print("Digite apenas o número da tarefa.")
+        elif opcao == "2":
+            print("\n===== TODAS AS TAREFAS =====")
+            listar_tarefas(tarefas)
+
+        elif opcao == "3":
+            if not tarefas:
+                print("Não há tarefas cadastradas.")
             else:
-                numero = int(numero)
-                indice = numero - 1
+                numero = input(
+                    "Digite o número da tarefa que deseja concluir: "
+                ).strip()
 
-                if indice >= 0 and indice < len(tarefas):
-                    tarefas[indice]["situacao"] = "concluída"
-                    print("Tarefa concluída com sucesso!")
+                if numero.isdigit():
+                    indice = int(numero) - 1
+
+                    if 0 <= indice < len(tarefas):
+                        tarefas[indice].concluir()
+                        print("Tarefa concluída com sucesso!")
+                    else:
+                        print("Tarefa inexistente.")
                 else:
-                    print("Tarefa inexistente.")
+                    print("Digite apenas o número da tarefa.")
 
-    elif opcao == "4":
-        print("Sistema encerrado.")
-        break
+        elif opcao == "4":
+            print("\n===== TAREFAS CONCLUÍDAS =====")
+            tarefas_concluidas = filtrar_por_situacao(
+                tarefas, "Concluída"
+            )
+            listar_tarefas(tarefas_concluidas)
 
-    else:
-        print("Opção inválida. Escolha um número de 1 a 4.")
+        elif opcao == "5":
+            print("\n===== TAREFAS PENDENTES =====")
+            tarefas_pendentes = filtrar_por_situacao(
+                tarefas, "Pendente"
+            )
+            listar_tarefas(tarefas_pendentes)
+
+        elif opcao == "6":
+            print("Voltando ao menu principal...")
+            break
+
+        else:
+            print("Opção inválida.")
