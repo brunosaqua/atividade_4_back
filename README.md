@@ -1,3 +1,7 @@
+Autoria
+Nome: Bruno Macedo da Silva
+Matricula: 202422975
+
 (1) Relatório — Sistema de Gestão de Tarefas
 Objetivo
 Criar a estrutura inicial de um projeto Python utilizando ambiente virtual e Git.
@@ -162,8 +166,5 @@ Foram cadastradas três tarefas:
 A primeira tarefa é concluída durante a execução e, posteriormente, o sistema apresenta as tarefas concluídas e pendentes.
 
 
-Autoria
-
-Nome: Bruno Macedo da Silva
 
 
