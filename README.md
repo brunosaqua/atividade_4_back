@@ -115,6 +115,53 @@ Nova situação: resolvido
 - hardware
 - software
 
+
+(5) Controle de Tarefas
+
+## Descrição
+
+Projeto desenvolvido para refatorar um protótipo de controle interno de tarefas, utilizando programação orientada a objetos, funções e módulos em Python.
+
+## Execução
+
+No terminal, dentro da pasta do projeto, execute:
+
+bash
+python main.py
+
+Caso o ambiente utilize Python 3:
+
+bash
+python3 main.py
+
+
+Organização
+tarefa.py: contém a classe Tarefa, seus atributos e métodos.
+servicos.py: contém as funções de cadastro, listagem e filtro.
+main.py: cria as tarefas e demonstra o funcionamento do sistema.
+
+## Funcionalidades
+
+O programa demonstra:
+
+* Cadastro de tarefas;
+* Listagem de tarefas;
+* Alteração da situação de uma tarefa;
+* Conclusão de tarefa;
+* Filtro por situação;
+* Uso de três tarefas como demonstração.
+
+## Demonstração
+
+Foram cadastradas três tarefas:
+
+1. Revisar chamados;
+2. Atualizar manual interno;
+3. Planejar reunião.
+
+A primeira tarefa é concluída durante a execução e, posteriormente, o sistema apresenta as tarefas concluídas e pendentes.
+
+
 Autoria
 
 Nome: Bruno Macedo da Silva
