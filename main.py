@@ -1,10 +1,16 @@
+from cadastro_tarefa import cadastrar_tarefa
+from gerenciador_chamados import menu_chamados
+from menu_tarefas import menu_tarefas
 from tarefa import Tarefa
-from servicos import cadastrar_tarefa, listar_tarefas, filtrar_por_situacao
+from servicos import cadastrar_tarefa as cadastrar_tarefa_objeto
 
 
+# Lista de tarefas da Atividade 5
 tarefas = []
 
-cadastrar_tarefa(
+
+# Cadastra 3 tarefas para demonstrar o funcionamento
+cadastrar_tarefa_objeto(
     tarefas,
     "Revisar chamados",
     "Verificar chamados pendentes da equipe",
@@ -12,7 +18,7 @@ cadastrar_tarefa(
     Tarefa
 )
 
-cadastrar_tarefa(
+cadastrar_tarefa_objeto(
     tarefas,
     "Atualizar manual interno",
     "Ajustar instruções de atendimento",
@@ -20,7 +26,7 @@ cadastrar_tarefa(
     Tarefa
 )
 
-cadastrar_tarefa(
+cadastrar_tarefa_objeto(
     tarefas,
     "Planejar reunião",
     "Preparar pauta da reunião semanal",
@@ -28,16 +34,35 @@ cadastrar_tarefa(
     Tarefa
 )
 
-# Concluindo a primeira tarefa
+
+# Conclui a primeira tarefa
 tarefas[0].concluir()
 
-print("=== TODAS AS TAREFAS ===")
-listar_tarefas(tarefas)
 
-print("\n=== TAREFAS CONCLUÍDAS ===")
-tarefas_concluidas = filtrar_por_situacao(tarefas, "Concluída")
-listar_tarefas(tarefas_concluidas)
+# Menu principal
+while True:
+    print("\n========================================")
+    print("       SISTEMA DE CONTROLE INTERNO")
+    print("========================================")
+    print("1 - Cadastro de tarefa")
+    print("2 - Gerenciador de chamados")
+    print("3 - Gerenciador de tarefas")
+    print("4 - Sair")
 
-print("\n=== TAREFAS PENDENTES ===")
-tarefas_pendentes = filtrar_por_situacao(tarefas, "Pendente")
-listar_tarefas(tarefas_pendentes)
+    opcao = input("Escolha uma opção: ").strip()
+
+    if opcao == "1":
+        cadastrar_tarefa()
+
+    elif opcao == "2":
+        menu_chamados()
+
+    elif opcao == "3":
+        menu_tarefas(tarefas)
+
+    elif opcao == "4":
+        print("Sistema encerrado.")
+        break
+
+    else:
+        print("Opção inválida. Escolha de 1 a 4.")
